@@ -97,6 +97,7 @@
     myText.addEventListener("mouseout", endHover);
     myText.addEventListener("touchstart", startHover);
     myText.addEventListener("touchend", endHover);
+    myText.addEventListener("touchcancel", endHover);
 
     function handleHover(iconId, newClassName) {
       var myIcon = document.getElementById(iconId);
@@ -115,6 +116,7 @@
       fatherDiv.addEventListener("mouseout", endIconHover);
       fatherDiv.addEventListener("touchstart", startIconHover);
       fatherDiv.addEventListener("touchend", endIconHover);
+      fatherDiv.addEventListener("touchcancel", endIconHover);
     }
 
     handleHover("blog", "ph-bold ph-arrow-right text-xl");

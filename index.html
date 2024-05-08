@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,7 +15,13 @@
       rel="stylesheet"
     />
     <link href="./src/fonts/satoshi/css/satoshi.css" rel="stylesheet" />
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script>
+      window.onload = function () {
+        var script = document.createElement("script");
+        script.src = "https://unpkg.com/@phosphor-icons/web";
+        document.body.appendChild(script);
+      };
+    </script>
     <title>Hi! I'm Rinki.</title>
   </head>
   <body
@@ -29,7 +35,7 @@
         I'm
         <span
           id="myText"
-          class="font-[500] font-playfair hover:drop-shadow-2xl hover:font-bold hover:text-pink-300 transition-all duration-200 ease-in-out align-baseline leading-10"
+          class="font-[500] font-playfair hover:drop-shadow-xl hover:font-bold hover:text-pink-300 transition-all duration-200 ease-in-out align-baseline leading-10"
           >Rinki</span
         >
       </h1>
@@ -67,7 +73,7 @@
     var insertText = "iii";
     var intervalId;
 
-    myText.addEventListener("mouseover", function () {
+    function startHover() {
       var i = 0;
       intervalId = setInterval(function () {
         if (i < insertText.length) {
@@ -80,25 +86,35 @@
           clearInterval(intervalId);
         }
       }, 200);
-    });
+    }
 
-    myText.addEventListener("mouseout", function () {
+    function endHover() {
       clearInterval(intervalId);
       myText.textContent = originalText;
-    });
+    }
+
+    myText.addEventListener("mouseover", startHover);
+    myText.addEventListener("mouseout", endHover);
+    myText.addEventListener("touchstart", startHover);
+    myText.addEventListener("touchend", endHover);
 
     function handleHover(iconId, newClassName) {
       var myIcon = document.getElementById(iconId);
       var fatherDiv = myIcon.parentElement;
       var originalClassName = myIcon.className;
 
-      fatherDiv.addEventListener("mouseover", function () {
+      function startIconHover() {
         myIcon.className = newClassName;
-      });
+      }
 
-      fatherDiv.addEventListener("mouseout", function () {
+      function endIconHover() {
         myIcon.className = originalClassName;
-      });
+      }
+
+      fatherDiv.addEventListener("mouseover", startIconHover);
+      fatherDiv.addEventListener("mouseout", endIconHover);
+      fatherDiv.addEventListener("touchstart", startIconHover);
+      fatherDiv.addEventListener("touchend", endIconHover);
     }
 
     handleHover("blog", "ph-bold ph-arrow-right text-xl");

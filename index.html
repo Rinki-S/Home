@@ -88,6 +88,13 @@
       }, 200);
     }
 
+    document.addEventListener("click", function (event) {
+      if (event.target.id !== textId && event.target.id !== iconId) {
+        endHover();
+        endIconHover();
+      }
+    });
+
     function endHover() {
       clearInterval(intervalId);
       myText.textContent = originalText;

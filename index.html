@@ -72,6 +72,7 @@
     var originalText = myText.textContent;
     var insertText = "iii";
     var intervalId;
+    var isTouchDevice = "ontouchstart" in document.documentElement;
 
     function startHover() {
       var i = 0;
@@ -84,6 +85,9 @@
           i++;
         } else {
           clearInterval(intervalId);
+          if (isTouchDevice) {
+            endHover();
+          }
         }
       }, 200);
     }
@@ -117,6 +121,8 @@
       fatherDiv.addEventListener("touchstart", startIconHover);
       fatherDiv.addEventListener("touchend", endIconHover);
       fatherDiv.addEventListener("touchcancel", endIconHover);
+
+      window.onload = endIconHover;
     }
 
     handleHover("blog", "ph-bold ph-arrow-right text-xl");

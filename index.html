@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="https://fmj.asrvd.me/👋" />
     <link href="./src/css/output.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -30,16 +31,30 @@
     <div
       class="mx-[10vw] grid grid-flow-row text-left text-gray-900 align-baseline"
     >
-      <h3 class="text-3xl font-playfair">Hello!</h3>
-      <h1 class="text-5xl font-playfair">
-        I'm
-        <span
-          id="myText"
-          class="font-[500] font-playfair hover:drop-shadow-xl hover:font-bold hover:text-pink-300 transition-all duration-200 ease-in-out align-baseline leading-10"
-          >Rinki</span
-        >
-      </h1>
-      <div class="grid grid-flow-row space-y-1 my-6 font-plex text-xl">
+      <div class="grid grid-flow-row">
+        <h3 class="text-3xl font-playfair">Hello!</h3>
+        <h1 id="myTextParent" class="text-5xl font-playfair">
+          I'm
+          <span
+            id="myText"
+            class="font-[500] font-playfair hover:drop-shadow-xl hover:font-bold hover:text-pink-300 transition-all duration-200 ease-in-out align-baseline leading-10"
+            >Rinki</span
+          >
+        </h1>
+      </div>
+      <div class="mt-2">
+        <p class="text-base font-plex">
+          A student studying Software Engineering at
+          <a
+            href="https://www.whut.edu.cn"
+            class="hover:underline hover:font-medium transition-all duration-100 ease-in-out"
+            >Wuhan University of Technology</a
+          >.
+        </p>
+        <p class="text-base font-plex">Interested in design.</p>
+      </div>
+
+      <div class="grid grid-flow-row space-y-1 mt-4 font-plex text-xl">
         <div
           class="hover:underline hover:drop-shadow-xl hover:font-medium w-fit transition-all duration-200 ease-in-out"
         >
@@ -65,70 +80,93 @@
             QQ
           </a>
         </div>
+        <div
+          class="hover:underline hover:drop-shadow-xl hover:font-medium w-fit transition-all duration-200 ease-in-out"
+        >
+          <a href="https://t.me/Riiiinki"
+            ><i id="telegram" class="ph-bold ph-minus text-base"></i>
+            Telegram
+          </a>
+        </div>
       </div>
     </div>
   </body>
   <script>
-    var myText = document.getElementById("myText");
-    var originalText = myText.textContent;
-    var insertText = "iii";
-    var intervalId;
+    function handleTextHover(textId, insertText, parentId) {
+      let myText = document.getElementById(textId);
+      const originalText = myText.textContent;
+      var intervalId;
 
-    function startHover() {
-      var i = 0;
-      intervalId = setInterval(function () {
-        if (i < insertText.length) {
-          myText.textContent =
-            originalText.slice(0, 2) +
-            insertText.slice(0, i + 1) +
-            originalText.slice(2);
-          i++;
-        } else {
-          clearInterval(intervalId);
-        }
-      }, 200);
-    }
-
-    document.addEventListener("click", function (event) {
-      if (event.target.id !== textId && event.target.id !== iconId) {
-        endHover();
-        endIconHover();
+      function startTextHover() {
+        // console.log("start");
+        clearInterval(intervalId);
+        let i = 0;
+        intervalId = setInterval(function () {
+          // console.log("before: " + i);
+          if (i < insertText.length) {
+            // console.log("after" + i);
+            myText.textContent =
+              originalText.slice(0, 2) +
+              insertText.slice(0, i + 1) +
+              originalText.slice(2);
+            i++;
+          } else {
+            clearInterval(intervalId);
+            // console.log("cleared");
+          }
+        }, 200);
       }
-    });
 
-    function endHover() {
-      clearInterval(intervalId);
-      myText.textContent = originalText;
+      function endTextHover() {
+        // console.log("end");
+        clearInterval(intervalId);
+        // console.log("cleared");
+        myText.textContent = originalText;
+      }
+
+      myText.addEventListener("mouseover", startTextHover);
+      myText.addEventListener("mouseout", endTextHover);
+      myText.addEventListener("touchstart", startTextHover, { passive: true });
+
+      document.addEventListener("click", function (event) {
+        if (event.target.id !== textId) {
+          endTextHover();
+        }
+      });
     }
 
-    myText.addEventListener("mouseover", startHover);
-    myText.addEventListener("mouseout", endHover);
-    myText.addEventListener("touchstart", startHover);
-    myText.addEventListener("touchend", endHover);
-    myText.addEventListener("touchcancel", endHover);
+    handleTextHover("myText", "iii", "myTextParent");
 
-    function handleHover(iconId, newClassName) {
-      var myIcon = document.getElementById(iconId);
-      var fatherDiv = myIcon.parentElement;
-      var originalClassName = myIcon.className;
+    function handleIconHover(iconId, newClassName) {
+      let myIcon = document.getElementById(iconId);
+      let fatherDiv = myIcon.parentElement;
+      const originalClassName = myIcon.className;
 
       function startIconHover() {
+        // console.log("start-icons");
         myIcon.className = newClassName;
       }
 
       function endIconHover() {
+        // console.log("end-icons");
         myIcon.className = originalClassName;
       }
 
       fatherDiv.addEventListener("mouseover", startIconHover);
       fatherDiv.addEventListener("mouseout", endIconHover);
-      fatherDiv.addEventListener("touchstart", startIconHover);
-      fatherDiv.addEventListener("touchend", endIconHover);
-      fatherDiv.addEventListener("touchcancel", endIconHover);
+      fatherDiv.addEventListener("touchstart", startIconHover, {
+        passive: true,
+      });
+      document.addEventListener("click", function (event) {
+        if (event.target.id !== iconId) {
+          endIconHover();
+        }
+      });
     }
 
-    handleHover("blog", "ph-bold ph-arrow-right text-base");
-    handleHover("twitter", "ph-bold ph-arrow-right text-base");
-    handleHover("qq", "ph-bold ph-arrow-right text-base");
+    handleIconHover("blog", "ph-bold ph-arrow-right text-base");
+    handleIconHover("twitter", "ph-bold ph-arrow-right text-base");
+    handleIconHover("qq", "ph-bold ph-arrow-right text-base");
+    handleIconHover("telegram", "ph-bold ph-arrow-right text-base");
   </script>
 </html>

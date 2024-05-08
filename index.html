@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./src/css/output.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="./src/fonts/satoshi/css/satoshi.css" rel="stylesheet" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <title>Hi! I'm Rinki.</title>
+  </head>
+  <body
+    class="grid grid-flow-col grid-cols-1 items-center h-[100vh] bg-gradient-to-b from-pink-50 to-white"
+  >
+    <div
+      class="mx-[10vw] grid grid-flow-row gap-2 text-left text-gray-900 align-baseline"
+    >
+      <h3 class="text-4xl font-playfair">Hello!</h3>
+      <h1 class="text-7xl font-playfair">
+        I'm
+        <span
+          id="myText"
+          class="font-[500] font-playfair hover:drop-shadow-2xl hover:font-bold hover:text-pink-300 transition-all duration-200 ease-in-out align-baseline leading-10"
+          >Rinki</span
+        >
+      </h1>
+      <div class="grid grid-flow-row space-y-2 my-8 font-plex text-2xl">
+        <div
+          class="hover:underline hover:drop-shadow-xl hover:font-medium w-fit transition-all duration-200 ease-in-out"
+        >
+          <a href="https://blog.rinki.top"
+            ><i id="blog" class="ph ph-minus text-xl"></i>
+            Blog
+          </a>
+        </div>
+        <div
+          class="hover:underline hover:drop-shadow-xl hover:font-medium w-fit transition-all duration-200 ease-in-out"
+        >
+          <a href="https://x.com/riiiinki_owo?s=21"
+            ><i id="twitter" class="ph ph-minus text-xl"></i> Twitter
+            <span class="text-sm">(Now sadly X)</span>
+          </a>
+        </div>
+        <div
+          class="hover:underline hover:drop-shadow-xl hover:font-medium w-fit transition-all duration-200 ease-in-out"
+        >
+          <a href="https://qm.qq.com/q/eTcGxosXRY"
+            ><i id="qq" class="ph ph-minus text-xl"></i>
+            QQ
+          </a>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    var myText = document.getElementById("myText");
+    var originalText = myText.textContent;
+    var insertText = "iii";
+    var intervalId;
+
+    myText.addEventListener("mouseover", function () {
+      var i = 0;
+      intervalId = setInterval(function () {
+        if (i < insertText.length) {
+          myText.textContent =
+            originalText.slice(0, 2) +
+            insertText.slice(0, i + 1) +
+            originalText.slice(2);
+          i++;
+        } else {
+          clearInterval(intervalId);
+        }
+      }, 200);
+    });
+
+    myText.addEventListener("mouseout", function () {
+      clearInterval(intervalId);
+      myText.textContent = originalText;
+    });
+
+    function handleHover(iconId, newClassName) {
+      var myIcon = document.getElementById(iconId);
+      var fatherDiv = myIcon.parentElement;
+      var originalClassName = myIcon.className;
+
+      fatherDiv.addEventListener("mouseover", function () {
+        myIcon.className = newClassName;
+      });
+
+      fatherDiv.addEventListener("mouseout", function () {
+        myIcon.className = originalClassName;
+      });
+    }
+
+    handleHover("blog", "ph-bold ph-arrow-right text-xl");
+    handleHover("twitter", "ph-bold ph-arrow-right text-xl");
+    handleHover("qq", "ph-bold ph-arrow-right text-xl");
+  </script>
+</html>

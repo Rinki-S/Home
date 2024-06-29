@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     fontFamily: {
       plex: ['"IBM Plex Sans"', "sans-serif"],
-      playfair: ['"Playfair Display"', "serif"],
+      playfair: ['"Instrument Serif"', "serif"],
     },
     extend: {},
   },

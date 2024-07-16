@@ -20,22 +20,14 @@
     </script>
     <title>Hi! I'm Rinki.</title>
   </head>
-  <body
-    class="grid grid-flow-col grid-cols-1 items-center h-[100vh] bg-gradient-to-b from-pink-50 to-white"
-  >
-    <div
-      class="mx-[10vw] grid grid-flow-row text-left text-gray-900 align-baseline"
-    >
-      <div class="frosted-glass">
+  <body class="h-[100vh] bg-gradient-to-b from-pink-50 to-white">
+    <div class="mx-8 my-8 w-fit text-gray-900 align-baseline">
+      <div class="frosted-glass w-fit">
         <div class="grid grid-flow-row">
           <h3 class="text-3xl font-playfair">Hello!</h3>
           <h1 id="myTextParent" class="text-5xl font-playfair">
             I'm
-            <span
-              id="myText"
-              class="font-[500] font-playfair hover:drop-shadow-xl hover:font-bold hover:text-pink-300 transition-all duration-200 ease-in-out align-baseline leading-10"
-              >Rinki</span
-            >
+            <span id="myText" class="font-[500] font-playfair">Rinki</span>
           </h1>
         </div>
         <div class="mt-2">
@@ -89,52 +81,6 @@
     </div>
   </body>
   <script>
-    function handleTextHover(textId, insertText, parentId) {
-      let myText = document.getElementById(textId);
-      const originalText = myText.textContent;
-      var intervalId;
-      // console.log(originalText);
-
-      function startTextHover() {
-        // console.log("start");
-        clearInterval(intervalId);
-        let i = 0;
-        intervalId = setInterval(function () {
-          // console.log("before: " + i);
-          if (i < insertText.length) {
-            // console.log("after" + i);
-            myText.textContent =
-              originalText.slice(0, 2) +
-              insertText.slice(0, i + 1) +
-              originalText.slice(2);
-            i++;
-          } else {
-            clearInterval(intervalId);
-            // console.log("cleared");
-          }
-        }, 200);
-      }
-
-      function endTextHover() {
-        // console.log("end");
-        clearInterval(intervalId);
-        // console.log("cleared");
-        myText.textContent = originalText;
-      }
-
-      myText.addEventListener("mouseover", startTextHover);
-      myText.addEventListener("mouseout", endTextHover);
-      myText.addEventListener("touchstart", startTextHover, { passive: true });
-
-      document.addEventListener("click", function (event) {
-        if (event.target.id !== textId) {
-          endTextHover();
-        }
-      });
-    }
-
-    handleTextHover("myText", "iii", "myTextParent");
-
     function handleIconHover(iconId, newClassName) {
       let myIcon = document.getElementById(iconId);
       let fatherDiv = myIcon.parentElement;
@@ -167,12 +113,10 @@
     handleIconHover("qq", "ph-bold ph-arrow-right text-base");
     handleIconHover("telegram", "ph-bold ph-arrow-right text-base");
 
-    fetch(
-      "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US"
-    )
+    fetch("https://api45gabs.azurewebsites.net/api/sample/bingphotos")
       .then((response) => response.json())
       .then((data) => {
-        const imageUrl = "https://www.bing.com" + data.images[0].url;
+        const imageUrl = "https://www.bing.com" + data[0].url;
         document.body.style.backgroundImage = `url('${imageUrl}')`;
         document.body.style.backgroundRepeat = "no-repeat";
         document.body.style.backgroundPosition = "center";
